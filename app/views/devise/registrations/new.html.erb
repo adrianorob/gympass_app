@@ -9,6 +9,7 @@
       <%= f.input :name, required: true%>
       <div id="mortals">
         <%= f.input :type_user, as: :radio_buttons, collection: [['Gym Manager', '0'], ['Regular User', '1']], label_method: :first, value_method: :last, required: true %>
+        <%= f.input :admin, :as => :hidden, :input_html => { :value => :false } %>
       </div>
       <div class="response"></div>
       <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
