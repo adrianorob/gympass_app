@@ -29,8 +29,13 @@
       <!-- Profile picture and dropdown -->
       <div class="navbar-gym-item">
         <div class="dropdown">
-          <%= image_tag "http://placehold.it/30x30", class: "avatar dropdown-toggle", id: "navbar-gym-menu", "data-toggle" => "dropdown" %>
-          <ul class="dropdown-menu dropdown-menu-right navbar-gym-dropdown-menu">
+          <p class="dropdown-toggle" data-toggle="dropdown" style="font-size: 10pt;">
+            Hello <%= current_user.name %>,
+            you are currently signed as
+            <%= current_user.type_user == "0" ? 'Gympass Manager' :
+            current_user.admin? ? 'Admin' : 'Regular User' %>
+          </p>
+          <ul class="dropdown-menu navbar-gym-dropdown-menu">
             <li>
               <%= link_to edit_user_registration_path do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
