@@ -1,0 +1,11 @@
+<h1>Gyms#show</h1>
+<p>Find me in app/views/gyms/show.html.erb</p>
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      var coord = <%= raw @gym_coordinates %>;
+      alert('Gym coordinates are ' + coord.lat + ', ' + coord.lng);
+    });
+  <% end %>
+<% end %>
