@@ -7,6 +7,8 @@ class Gym < ApplicationRecord
   validates :close_time, presence: true
   validates :address, presence: true
 
+  has_many :user_token, dependent: :destroy
+
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 

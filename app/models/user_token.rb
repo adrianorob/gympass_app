@@ -1,6 +1,6 @@
 class UserToken < ApplicationRecord
   belongs_to :user
-  belongs_to :gym, dependent: :destroy
+  belongs_to :gym
 
   tokenizable
 end

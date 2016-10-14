@@ -28,6 +28,7 @@ class GymsController < ApplicationController
     @gym = Gym.new(gym_params)
     @gym.user = current_user
     if @gym.save
+      GymMailer.gymcreated(@gym.user, @gym).deliver_now
       redirect_to root_path
     else
       render :new
@@ -67,12 +68,16 @@ class GymsController < ApplicationController
   def get_token
     if current_user.token?
       gym = Gym.find(params[:id])
-      UserToken.create(user: current_user, gym: Gym.find(params[:id])).add_token(:active, expires_at: 1.days.from_now)
+      UserToken.create(user: current_user,
+                       gym: Gym.find(params[:id])).add_token(:active,
+                                                      expires_at: 1.days.from_now)
       flash[:notice] = "You've got a token to use in gym #{gym.name} and expires in one day"
       redirect_to root_path
     else
-      user_token = UserToken.where(user_id: current_user).where("? < created_at ",(Time.now - 86400)).first
-      flash[:alert] = "You already have a valid token for gym #{user_token.gym.name} that expires at #{user_token.tokens.first.expires_at}"
+      user_token = UserToken.where(user_id: current_user)
+                            .where("? < created_at ",(Time.now - 86400)).first
+      flash[:alert] = "You already have a valid token for gym #{user_token.gym.name}
+                                        that expires at #{user_token.tokens.first.expires_at}"
       redirect_to root_path
     end
   end
