@@ -14,7 +14,11 @@
   </ul>
   <%= link_to "Details", gym_path(gym), target: :blank, class: "btn btn-danger" %>
   <% if current_user %>
-    <%= link_to "Get Token", "#", target: :blank, class: "btn btn-danger" %>
+    <%= link_to "Get Token", token_path(gym), target: :blank, class: "btn btn-danger" %>
+    <br><br>
+    <% if !current_user.regular_user? %>
+      <%= link_to "Destroy Gym", gym_path(gym), method: :delete, target: :blank, class: "btn btn-danger" %>
+    <% end %>
   <% end %>
 <hr>
 </div>

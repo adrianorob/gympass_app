@@ -1,5 +1,0 @@
-class AddTypeToUserAddress < ActiveRecord::Migration[5.0]
-  def change
-    add_column :useraddresses, :type_address, :string
-  end
-end

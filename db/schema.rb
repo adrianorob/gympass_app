@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012232432) do
+ActiveRecord::Schema.define(version: 20161014021609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,15 +28,27 @@ ActiveRecord::Schema.define(version: 20161012232432) do
     t.index ["user_id"], name: "index_gyms_on_user_id", using: :btree
   end
 
-  create_table "useraddresses", force: :cascade do |t|
+  create_table "tokens", force: :cascade do |t|
+    t.string   "name",             null: false
+    t.string   "tokenizable_type", null: false
+    t.integer  "tokenizable_id",   null: false
+    t.string   "token",            null: false
+    t.text     "data"
+    t.datetime "expires_at"
+    t.datetime "created_at",       null: false
+    t.index ["expires_at"], name: "index_tokens_on_expires_at", using: :btree
+    t.index ["token"], name: "index_tokens_on_token", using: :btree
+    t.index ["tokenizable_id", "tokenizable_type", "name"], name: "index_tokens_on_tokenizable_id_and_tokenizable_type_and_name", unique: true, using: :btree
+    t.index ["tokenizable_type", "tokenizable_id"], name: "index_tokens_on_tokenizable_type_and_tokenizable_id", using: :btree
+  end
+
+  create_table "user_tokens", force: :cascade do |t|
     t.integer  "user_id"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "address"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "type_address"
-    t.index ["user_id"], name: "index_useraddresses_on_user_id", using: :btree
+    t.integer  "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gym_id"], name: "index_user_tokens_on_gym_id", using: :btree
+    t.index ["user_id"], name: "index_user_tokens_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,5 +74,6 @@ ActiveRecord::Schema.define(version: 20161012232432) do
   end
 
   add_foreign_key "gyms", "users"
-  add_foreign_key "useraddresses", "users"
+  add_foreign_key "user_tokens", "gyms"
+  add_foreign_key "user_tokens", "users"
 end

@@ -16,6 +16,12 @@
       </li>
     </ul>
     <%= link_to "List of Gyms", gyms_path, target: :blank, class: "btn btn-danger" %>
+    <% if current_user %>
+      <%= link_to "Get Token", token_path(@gym), target: :blank, class: "btn btn-danger" %>
+      <% if !current_user.regular_user? %>
+        <%= link_to "Destroy Gym", gym_path(@gym), method: :delete, target: :blank, class: "btn btn-danger" %>
+      <% end %>
+    <% end %>
     <hr>
   </div>
 

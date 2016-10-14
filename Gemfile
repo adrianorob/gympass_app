@@ -19,6 +19,7 @@ gem 'simple_form'
 gem 'autoprefixer-rails'
 gem 'coffee-rails'
 gem 'gmaps4rails'
+gem 'tokens'
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"

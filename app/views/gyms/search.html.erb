@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-4">
       <div class="row">
-        <h4>List of Gyms near address: <span style="color: #D23333" ><u><%= @address %></u></span></h4>
+        <h4>List of Gyms near address: <span style="color: #D23333" ><u><%= @address %></u></span>  (<%= @gyms.size %> gyms)</h4>
         <hr>
         <% @gyms.each do |gym| %>
           <%= render 'gym_card', gym: gym %>

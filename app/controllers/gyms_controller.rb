@@ -38,6 +38,16 @@ class GymsController < ApplicationController
   end
 
   def destroy
+    gym = Gym.find(params[:id])
+    check = gym.user == current_user
+    if current_user.admin? || check
+      gym.destroy
+      flash[:notice] = "You've deleted gym #{gym.name} succesfully!"
+      redirect_to root_path
+    else
+      flash[:alert] = "You do not have permission to delete gym #{gym.name}!"
+      redirect_to root_path
+    end
   end
 
   def search
@@ -47,6 +57,19 @@ class GymsController < ApplicationController
       marker.lat gym.latitude
       marker.lng gym.longitude
       marker.infowindow render_to_string(partial: "/gyms/map_box", locals: { gym: gym })
+    end
+  end
+
+  def get_token
+    if current_user.token?
+      gym = Gym.find(params[:id])
+      UserToken.create(user: current_user, gym: Gym.find(params[:id])).add_token(:active, expires_at: 1.days.from_now)
+      flash[:notice] = "You've got a token to use in gym #{gym.name} and expires in one day"
+      redirect_to root_path
+    else
+      user_token = UserToken.where(user_id: current_user).where("? < created_at ",(Time.now - 86400)).first
+      flash[:alert] = "You already have a valid token for gym #{user_token.gym.name} that expires at #{user_token.tokens.first.expires_at}"
+      redirect_to root_path
     end
   end
 

@@ -19,4 +19,8 @@ class User < ApplicationRecord
     self.type_user == "1"
   end
 
+  def token?
+    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 86400)).count < 1
+  end
+
 end

@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   get '/search', to: 'gyms#search'
 
+  get '/token/:id', to: 'gyms#get_token', as: 'token'
+
 end
