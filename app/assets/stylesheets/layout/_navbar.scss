@@ -1,4 +1,3 @@
-/* Main class */
 .navbar-gym {
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
   background: white;
@@ -10,7 +9,6 @@
   justify-content: space-between;
 }
 
-/* Optional class to fix the navbar on top */
 .navbar-gym-fixed {
   position: fixed;
   left: 0px;
@@ -19,26 +17,22 @@
   width: 100%;
 }
 
-/* Navbar logo */
 .navbar-gym-brand img {
   width: 50px;
 }
 
-/* Navbar right section (with form, links, button) */
 .navbar-gym-right {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Navbar item */
 .navbar-gym-item {
   flex: 0 1 auto;
   cursor: pointer;
   padding: 0 20px;
 }
 
-/* Navbar standard link */
 .navbar-gym-link {
   color: #616668;
   font-size: 14px;
@@ -48,7 +42,6 @@
   text-decoration: none;
 }
 
-/* Navbar right button */
 .navbar-gym-button {
   margin-left: 10px;
   padding: 0 20px;
@@ -65,9 +58,8 @@
   border-color: #ac2626;
 }
 
-/* Navbar search form */
 .navbar-gym-search {
-  flex: 0 1 300px;
+  flex: 0 1 500px;
   display: flex;
   justify-content: flex-end;
   padding: 0 10px;
@@ -99,7 +91,6 @@
   border: 1px solid #CCCCCC;
 }
 
-/* Navbar dropdown menu */
 .navbar-gym-dropdown-menu {
   margin-top: 15px;
   box-shadow: 1px 1px 4px #E6E6E6;
@@ -128,4 +119,8 @@
   transform: rotate(45deg);
   border-left: 1px solid #E6E6E6;
   border-top: 1px solid #E6E6E6;
+}
+
+.btn-special {
+  cursor: default;
 }

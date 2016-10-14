@@ -1,7 +1,25 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+require 'open-uri'
+require 'nokogiri'
+
+# Create first gympass user
 #
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+user = User.create!(name: 'Xará',
+                    email: 'adriano@gympass.com',
+                    type_user: '0',
+                    work_address: 'Sao Paulo',
+                    password: "123123",
+                    password_confirmation: "123123",
+                    admin: "true"
+                    )
+
+page = Nokogiri::HTML(open("https://www.gympass.com/negocios/"))
+
+page.css('div.rec_list_s').each do |item|
+  Gym.create(user: user,
+             name: item.css('h3').text,
+             address: item.css("meta[itemprop='address']").first.attributes.values[1].value,
+             open_time: "6",
+             close_time: "23"
+             )
+end

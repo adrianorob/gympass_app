@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012122736) do
+ActiveRecord::Schema.define(version: 20161012232432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gyms", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.string   "open_time"
+    t.string   "close_time"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_gyms_on_user_id", using: :btree
+  end
+
+  create_table "useraddresses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "type_address"
+    t.index ["user_id"], name: "index_useraddresses_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,8 +55,12 @@ ActiveRecord::Schema.define(version: 20161012122736) do
     t.string   "name"
     t.string   "type_user"
     t.boolean  "admin"
+    t.string   "work_address"
+    t.string   "home_address"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "gyms", "users"
+  add_foreign_key "useraddresses", "users"
 end

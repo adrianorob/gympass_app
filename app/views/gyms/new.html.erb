@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>New Gym</h1>
+  <%= simple_form_for @gym do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :name, required: true, autofocus: true  %>
+    <%= f.input :address, placeholder: "280 Avenida Costabile Romano, Ribeirão Preto", required: true %>
+    <%= f.input :open_time, as: :select, collection: (00..23), required: true %>
+    <%= f.input :close_time, as: :select, collection: (00..23), required: true %>
+    <div class="form-actions">
+      <%= f.button :submit, "Register gym" %>
+    </div>
+  <% end %>
+</div>
