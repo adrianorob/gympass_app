@@ -1,5 +1,5 @@
 class GymsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :index, :show ]
+  skip_before_action :authenticate_user!, only: [ :index, :show, :search ]
 
   def index
     if current_user
