@@ -52,7 +52,11 @@ class GymsController < ApplicationController
 
   def search
     @address = params[:address_query]
-    @gyms = Gym.near(@address, 30)
+    if params[:address_query].empty?
+      @gyms = Gym.near([-21.998062, -46.241335], 500)
+    else
+      @gyms = Gym.near(@address, 30)
+    end
     @hash = Gmaps4rails.build_markers(@gyms) do |gym, marker|
       marker.lat gym.latitude
       marker.lng gym.longitude
