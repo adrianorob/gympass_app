@@ -8,8 +8,8 @@
   <div class="navbar-gym-right hidden-xs hidden-sm">
 
     <!-- Search form -->
-    <form action="" class="navbar-gym-search">
-      <input type="text" class="navbar-gym-search-input" placeholder="Search something">
+    <form action="/search" method="get" class="navbar-gym-search">
+      <input type="text" name="address_query" id="address_query" class="navbar-gym-search-input" placeholder="Enter an address">
       <button type="submit" class="navbar-gym-search-btn">
         <i class="fa fa-search"></i>
       </button>
@@ -29,7 +29,7 @@
       <!-- Profile picture and dropdown -->
       <div class="navbar-gym-item">
         <div class="dropdown">
-          <p class="dropdown-toggle" data-toggle="dropdown" style="font-size: 10pt;">
+          <p class="dropdown-toggle navbar-gym-button btn" data-toggle="dropdown" style="font-size: 10pt;">
             Hello <%= current_user.name %>,
             you are currently signed as
             <%= current_user.type_user == "0" ? 'Gympass Manager' :
@@ -55,14 +55,20 @@
         </div>
       </div>
 
+      <% if current_user.admin? || !current_user.regular_user? %>
+        <%= link_to t(".top_call_to_action", default: "+ Add Gym"), new_gym_path, class: "navbar-gym-item navbar-gym-button btn" %>
+      <% end %>
+
     <% else %>
 
       <!-- Login text link -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-gym-item navbar-gym-link" %>
+      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-gym-item navbar-gym-button btn" %>
+      <p class="navbar-gym-item navbar-gym-button btn btn-special" style="font-size: 10pt;">
+        Hello, you are not signed!
+      </p>
 
     <% end %>
     <!-- Button (call-to-action) -->
-    <%= link_to t(".top_call_to_action", default: "Post stuff"), "#", class: "navbar-gym-item navbar-gym-button btn" %>
   </div>
 
   <!-- Dropdown list appearing on mobile only -->

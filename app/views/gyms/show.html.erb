@@ -1,11 +1,30 @@
-<h1>Gyms#show</h1>
-<p>Find me in app/views/gyms/show.html.erb</p>
+<div class="container">
+  <br>
+  <h4>Gym Detail</h4>
+  <div class="col-xs-12">
+    <h3><%= @gym.name %></h3>
+    <p><%= @gym.address %></p>
+    <br>
+    <ul class="list-inline">
+      <li>
+        <h4>Open Time:</h4>
+        <p><%= @gym.open_time %>:00h</p>
+      </li>
+      <li>
+        <h4>Close Time:</h4>
+        <p><%= @gym.close_time %>:00h</p>
+      </li>
+    </ul>
+    <%= link_to "List of Gyms", gyms_path, target: :blank, class: "btn btn-danger" %>
+    <hr>
+  </div>
 
-<% content_for(:after_js) do %>
-  <%= javascript_tag do %>
-    $(document).ready(function() {
-      var coord = <%= raw @gym_coordinates %>;
-      alert('Gym coordinates are ' + coord.lat + ', ' + coord.lng);
-    });
+  <% content_for(:after_js) do %>
+    <%= javascript_tag do %>
+      $(document).ready(function() {
+        var coord = <%= raw @gym_coordinates %>;
+        alert('Gym coordinates are ' + coord.lat + ', ' + coord.lng);
+      });
+    <% end %>
   <% end %>
-<% end %>
+</div>
