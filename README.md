@@ -33,7 +33,7 @@ Para parecer mais realista foi criado um seed.rb para popular dados de academias
 gem install 'nokogiri'
 gem install 'open-uri'
 ```
-* Primeiro usuario:
+* As definições do primeiro usuario estão dentro do arquivo db/seed.rb (abaixo segue os valores):
 ```ruby
 user = User.create!(name: 'Xará',
                     email: 'adriano@gympass.com',
@@ -44,7 +44,7 @@ user = User.create!(name: 'Xará',
                     admin: "true"
                     )
 ```
-* Inicia o comando para popular:
+* Roda seed.rb para popular o ambiente:
 ```bash
 rails db:seed
 ```
