@@ -2,14 +2,14 @@ require 'open-uri'
 require 'nokogiri'
 
 # Create first gympass user
-# user = User.create!(name: 'Xará',
-#                     email: 'adriano@gympass.com',
-#                     type_user: '0',
-#                     work_address: 'Sao Paulo',
-#                     password: "123123",
-#                     password_confirmation: "123123",
-#                     admin: "true"
-#                     )
+user = User.create!(name: 'Xará',
+                    email: 'adriano@gympass.com',
+                    type_user: '0',
+                    work_address: 'Sao Paulo',
+                    password: "123123",
+                    password_confirmation: "123123",
+                    admin: "true"
+                    )
 
 # Seed academias sao paulo
 page = Nokogiri::HTML(open("https://www.gympass.com/academias/em/sp/sao-paulo"))
