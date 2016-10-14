@@ -28,6 +28,7 @@ class GymsController < ApplicationController
     @gym = Gym.new(gym_params)
     @gym.user = current_user
     if @gym.save
+      GymMailer.gymcreated(@gym.user, @gym).deliver_now
       redirect_to root_path
     else
       render :new
