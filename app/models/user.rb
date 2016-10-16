@@ -11,6 +11,9 @@ class User < ApplicationRecord
   validates :work_address, presence: true
   validates :home_address, presence: true, if: :regular_user?
 
+  has_many :gyms
+  has_many :user_tokens
+
   def admin?
     self.admin
   end
@@ -21,6 +24,14 @@ class User < ApplicationRecord
 
   def token?
     UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 86400)).count < 1
+  end
+
+  def use_token?
+    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 86400)).count == 1
+  end
+
+  def token_not_assigned_to_gym?
+    UserToken.where(user_id: self.id).last.gym.nil?
   end
 
   def check_gym_manager?(gym)

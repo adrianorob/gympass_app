@@ -1,5 +1,18 @@
 <br>
 <div class="container">
+  <% if user_signed_in? %>
+    <div class="row">
+      <div class="col-xs-12 text-right">
+        <%= link_to "Get Daily Token", get_token_path, class: "btn btn-danger" %>
+        <% if current_user.regular_user? %>
+          <%= link_to "List of my tokens", reg_user_tokens_path, class: "btn btn-primary" %>
+        <% else %>
+          <%= link_to "List of tokens per gym", list_gym_tokens_path, class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <br>
   <div class="row">
     <div class="col-xs-3">
       <div class="row">

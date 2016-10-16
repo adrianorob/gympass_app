@@ -5,4 +5,5 @@ class UserToken < ApplicationRecord
   tokenizable
 
 
+
 end

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row"><div class="col-xs-6">
+    <h3>List of my Gyms that has user tokens (<%= @list_tokens.size %>) </h3>
+  </div></div>
+  <div class="row">
+    <ul>
+      <% @list_tokens.each do |tokens, gym| %>
+        <div class="col-xs-6">
+          <li>
+            <h4><strong><u><%= gym.name %></u></strong></h4> tokens (<%= tokens.size %>)
+          </li>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+<% @list_tokens.each do |tokens, gym| %>
+  <p><%= tokens.last.user.name %></p>
+<% end %>
