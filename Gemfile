@@ -25,6 +25,9 @@ gem "letter_opener", group: :development
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
+
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
 end

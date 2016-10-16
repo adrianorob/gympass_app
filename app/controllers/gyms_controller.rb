@@ -68,10 +68,11 @@ class GymsController < ApplicationController
   def get_token
     if current_user.token?
       gym = Gym.find(params[:id])
+      frac_time_end_day = Time.now.seconds_until_end_of_day.fdiv(86400)
       UserToken.create(user: current_user,
                        gym: Gym.find(params[:id])).add_token(:active,
-                                                      expires_at: 1.days.from_now)
-      flash[:notice] = "You've got a token to use in gym #{gym.name} and expires in one day"
+                                                      expires_at: frac_time_end_day.days.from_now)
+      flash[:notice] = "You've got a token to use in gym #{gym.name} and its available until the end of the day"
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)

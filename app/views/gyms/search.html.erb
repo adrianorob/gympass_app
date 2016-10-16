@@ -6,7 +6,7 @@
         <h4>List of Gyms near address: <span style="color: #D23333" ><u><%= @address %></u></span>  (<%= @gyms.size %> gyms)</h4>
         <hr>
         <% @gyms.each do |gym| %>
-          <%= render 'gym_card', gym: gym %>
+          <%= render 'map_box', gym: gym %>
         <% end %>
       </div>
     </div>

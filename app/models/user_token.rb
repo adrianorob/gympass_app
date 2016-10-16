@@ -3,4 +3,6 @@ class UserToken < ApplicationRecord
   belongs_to :gym
 
   tokenizable
+
+
 end

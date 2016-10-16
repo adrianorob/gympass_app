@@ -8,6 +8,8 @@
       <% unless current_user.admin? %>
         <%= f.input :email, required: true, autofocus: true %>
       <% end %>
+
+      <%= f.input :work_address, required: true %>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>

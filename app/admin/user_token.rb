@@ -12,6 +12,13 @@ ActiveAdmin.register UserToken do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-
+  index do
+    selectable_column
+    column :id
+    column :gym
+    column :user
+    column :created_at
+    actions
+  end
 
 end
