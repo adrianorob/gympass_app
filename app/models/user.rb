@@ -23,4 +23,8 @@ class User < ApplicationRecord
     UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 86400)).count < 1
   end
 
+  def check_gym_manager?(gym)
+    gym.user == self
+  end
+
 end

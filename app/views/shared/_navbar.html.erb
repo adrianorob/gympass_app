@@ -36,11 +36,13 @@
             current_user.type_user == "0" ? 'Gympass Manager' : 'Regular User' %>
           </p>
           <ul class="dropdown-menu navbar-gym-dropdown-menu">
-            <li>
-              <%= link_to admin_root_path do %>
-                <i class="fa fa-user"></i> <%= t(".admin", default: "Admin Section") %>
-              <% end %>
-            </li>
+            <% if current_user.admin? %>
+              <li>
+                <%= link_to admin_root_path do %>
+                  <i class="fa fa-user"></i> <%= t(".admin", default: "Admin Section") %>
+                <% end %>
+              </li>
+            <% end %>
             <li>
               <%= link_to edit_user_registration_path do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
