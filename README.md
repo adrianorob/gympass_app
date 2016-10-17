@@ -56,3 +56,14 @@ Após esses primeiros passos pode-se iniciar o servidor e navegar pela aplicaç�
 ```bash
 rails server
 ```
+
+## Teste APP
+
+Foram criados alguns testes de acceptance para a home_page e para o sign_up de
+um usuario.
+
+Para rodar os testes apenas execute o comando:
+
+```bash
+rspec
+```
