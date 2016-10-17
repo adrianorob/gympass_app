@@ -38,4 +38,8 @@ class User < ApplicationRecord
     gym.user == self
   end
 
+  def disactive_tokens
+    current_user.gym.user == self
+  end
+
 end
