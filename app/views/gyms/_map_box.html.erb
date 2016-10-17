@@ -1,4 +1,4 @@
-<div class="map_box" style="height: 330px; width: 350px">
+<div class="map_box">
   <h3><%= gym.name %></h3>
   <p><%= gym.address %></p>
   <br>
@@ -12,12 +12,13 @@
       <p><%= gym.close_time %>:00h</p>
     </li>
   </ul>
-  <%= link_to "Details", gym_path(gym), target: :blank, class: "btn btn-danger" %>
+  <%= link_to "Details", gym_path(gym), class: "btn btn-danger" %>
   <% if current_user %>
-    <%= link_to "Get Token", token_path(gym), target: :blank, class: "btn btn-danger" %>
+    <%= link_to "Use Token", use_token_path(gym), class: "btn btn-danger" %>
     <br><br>
-    <% if !current_user.regular_user? %>
-      <%= link_to "Destroy Gym", gym_path(gym), method: :delete, target: :blank, class: "btn btn-danger" %>
+    <% if current_user.admin? || current_user.check_gym_manager?(gym) %>
+      <%= link_to "Destroy Gym", gym_path(gym), method: :delete, class: "btn btn-danger" %>
     <% end %>
   <% end %>
+<hr>
 </div>

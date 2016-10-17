@@ -19,10 +19,10 @@
     <% if user_signed_in? %>
 
       <!-- Notification  TODO -->
-      <%= link_to "#", class: "navbar-gym-item navbar-gym-link" do %>
+      <%= link_to list_gym_tokens_path, class: "navbar-gym-item navbar-gym-link" do %>
         <div class="badge-container">
           <i class="fa fa-question-circle-o"></i>
-          <div class="badge badge-blue">3</div>
+          <div class="badge badge-blue"><%= current_user.disactive_tokens %></div>
         </div>
       <% end %>
 
@@ -32,10 +32,17 @@
           <p class="dropdown-toggle navbar-gym-button btn" data-toggle="dropdown" style="font-size: 10pt;">
             Hello <%= current_user.name %>,
             you are currently signed as
-            <%= current_user.type_user == "0" ? 'Gympass Manager' :
-            current_user.admin? ? 'Admin' : 'Regular User' %>
+            <%= current_user.admin? ? 'Admin' :
+            current_user.type_user == "0" ? 'Gympass Manager' : 'Regular User' %>
           </p>
           <ul class="dropdown-menu navbar-gym-dropdown-menu">
+            <% if current_user.admin? %>
+              <li>
+                <%= link_to admin_root_path do %>
+                  <i class="fa fa-user"></i> <%= t(".admin", default: "Admin Section") %>
+                <% end %>
+              </li>
+            <% end %>
             <li>
               <%= link_to edit_user_registration_path do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>

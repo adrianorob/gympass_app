@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row"><div class="col-xs-6">
+    <h3>List of my Tokens (<%= @list_tokens.size %>) </h3>
+  </div></div>
+  <div class="row">
+    <ul>
+      <% @list_tokens.each do |usertoken| %>
+        <div class="col-xs-6">
+          <li>
+            <h4>Token for Gym <strong><u><%= usertoken.gym.name %></u></strong></h4>
+            <p><strong>Status:</strong> <%= usertoken.tokens.first.name %></p>
+            <p><strong>Token:</strong> <%= usertoken.tokens.first.token %></p>
+            <p><strong>Created at:</strong> <%= usertoken.tokens.first.created_at %></p>
+            <p><strong>Expired at:</strong> <%= usertoken.tokens.first.expires_at %></p>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -15,22 +15,13 @@
         <p><%= @gym.close_time %>:00h</p>
       </li>
     </ul>
-    <%= link_to "List of Gyms", gyms_path, target: :blank, class: "btn btn-danger" %>
+    <%= link_to "Back Home", gyms_path, class: "btn btn-primary" %>
     <% if current_user %>
-      <%= link_to "Get Token", token_path(@gym), target: :blank, class: "btn btn-danger" %>
-      <% if !current_user.regular_user? %>
-        <%= link_to "Destroy Gym", gym_path(@gym), method: :delete, target: :blank, class: "btn btn-danger" %>
+      <%= link_to "Use Token", use_token_path(@gym), class: "btn btn-danger" %>
+      <% if !current_user.regular_user? && current_user.check_gym_manager?(@gym) %>
+        <%= link_to "Destroy Gym", gym_path(@gym), method: :delete, class: "btn btn-danger" %>
       <% end %>
     <% end %>
     <hr>
   </div>
-
-  <% content_for(:after_js) do %>
-    <%= javascript_tag do %>
-      $(document).ready(function() {
-        var coord = <%= raw @gym_coordinates %>;
-        alert('Gym coordinates are ' + coord.lat + ', ' + coord.lng);
-      });
-    <% end %>
-  <% end %>
 </div>

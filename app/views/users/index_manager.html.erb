@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row"><div class="col-xs-6">
+    <h3>List of my Gyms that has user tokens (<%= @list_tokens.size %>) </h3>
+    <h4>Number of not validated tokens: <%= current_user.disactive_tokens %></h4>
+  </div></div>
+  <div class="row">
+    <ul>
+      <% @list_tokens.each do |tokens, gym| %>
+        <div class="col-xs-6">
+          <li>
+            <h4><strong><u><%= gym.name %></u></strong></h4>
+            <ul>
+              <li>
+                Not Validated Tokens (<%= gym.tokens.where(name: "disactive").size %>)
+              </li>
+              <li>
+                Validated Tokens (<%= gym.tokens.where(name: "active").size %>)
+              </li>
+              <li class="list-inline">
+                <%= link_to "Check Tokens", show_manager_path(gym), class: "btn btn-primary" %>
+              </li>
+            </ul>
+          </li>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>
