@@ -7,15 +7,11 @@
       <% @list_tokens.each do |tokens, gym| %>
         <div class="col-xs-6">
           <li>
-            <h4><strong><u><%= gym.name %></u></strong></h4> tokens (<%= tokens.size %>)
+            <h4><strong><u><%= gym.name %></u></strong></h4> tokens (<%= gym.tokens.where(name: "disactive").size %>)
+            <%= link_to "Check Tokens", show_manager_path(gym), class: "btn btn-primary" %>
           </li>
         </div>
       <% end %>
     </ul>
   </div>
 </div>
-
-
-<% @list_tokens.each do |tokens, gym| %>
-  <p><%= tokens.last.user.name %></p>
-<% end %>

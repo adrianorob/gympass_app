@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row"><div class="col-xs-6">
+    <h3>List of tokens for Gym <strong><u><%= @gym.name %></u></strong></h3>
+  </div></div>
+  linklist_gym_tokens_path
+  <hr>
+  <div class="row">
+    <ul>
+      <h4>Tokens to be Validated (<%= @list_tokens.size %>)</h4>
+      <% @list_tokens.each do |token| %>
+        <div class="col-xs-12">
+          <li>
+            <h4><strong>Usuario: <u><%= UserToken.find(token.tokenizable_id).user.name %></u></strong></h4>
+            <p><strong>Status: <u><%= token.name %></u></strong></p>
+            <p><strong>Created at: <u><%= token.created_at %></u></strong></p>
+            <p><strong>Expires at: <u><%= token.expires_at %></u></strong></p>
+            <%= link_to "Validate Token", validate_token_path(token), class: "btn btn-primary" %>
+          </li>
+          <hr>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+  <hr>
+  <div class="row">
+    <ul>
+      <h4>Tokens already Validated (<%= @list_tokens_active.size %>)</h4>
+      <% @list_tokens_active.each do |token| %>
+        <div class="col-xs-12">
+          <li>
+            <h4><strong>Usuario: <u><%= UserToken.find(token.tokenizable_id).user.name %></u></strong></h4>
+            <p><strong>Status: <u><%= token.name %></u></strong></p>
+            <p><strong>Created at: <u><%= token.created_at %></u></strong></p>
+            <p><strong>Expires at: <u><%= token.expires_at %></u></strong></p>
+          </li>
+          <hr>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>

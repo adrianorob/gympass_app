@@ -38,18 +38,21 @@ class UsersController < ApplicationController
 
   def index_regular
     tokens = current_user.user_tokens
-    # tokens.each do |gym|
-    #   if !item.user_tokens.empty?
-    #     list << item.user_tokens
-    #   end
-    # end
     @list_tokens = tokens
   end
 
   # => Managers
   #
   def validate_user_token
-    usertoken = "active"
+    token = Token.find(params[:id])
+    token.name = "active"
+    if token.save
+      flash[:notice] = "You validated a Token"
+      redirect_to list_gym_tokens_path
+    else
+      flash[:alert] = "You could not validate"
+      redirect_to list_gym_tokens_path
+    end
   end
 
   def index_manager
@@ -61,7 +64,12 @@ class UsersController < ApplicationController
       end
     end
     @list_tokens = list
-    # raise
+  end
+
+  def show_manager
+    @gym = Gym.find(params[:id])
+    @list_tokens = @gym.tokens.where(name: "disactive")
+    @list_tokens_active = @gym.tokens.where(name: "active")
   end
 
 end

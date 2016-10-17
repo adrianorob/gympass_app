@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   get '/list_gym_token', to: 'users#index_manager', as: 'list_gym_tokens'
   get '/reg_user_token', to: 'users#index_regular', as: 'reg_user_tokens'
 
+  get '/show_manager/:id', to: 'users#show_manager', as: 'show_manager'
+  get '/validate_token/:id', to: 'users#validate_user_token', as: 'validate_token'
+
 end
