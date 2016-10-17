@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row"><div class="col-xs-6">
     <h3>List of my Gyms that has user tokens (<%= @list_tokens.size %>) </h3>
+    <h4>Number of not validated tokens: <%= current_user.disactive_tokens %></h4>
   </div></div>
   <div class="row">
     <ul>

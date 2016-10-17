@@ -40,7 +40,7 @@ class GymsController < ApplicationController
 
   def destroy
     gym = Gym.find(params[:id])
-    if current_user.admin? && current_user.check_gym_manager?(gym)
+    if current_user.admin? || current_user.check_gym_manager?(gym)
       gym.destroy
       flash[:notice] = "You've deleted gym #{gym.name} succesfully!"
       redirect_to root_path

@@ -39,7 +39,11 @@ class User < ApplicationRecord
   end
 
   def disactive_tokens
-    current_user.gym.user == self
+    count = 0
+    self.gyms.each do |gym|
+      count += gym.tokens.where(name: 'disactive').size
+    end
+    count
   end
 
 end
