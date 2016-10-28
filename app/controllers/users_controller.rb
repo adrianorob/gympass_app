@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)
-                            .where("? < created_at ",(Time.now - 86400)).first
+                            .where("? < created_at ",(Time.now - User::SECONDS_DAY)).first
       flash[:alert] = "You've already got valid token (at: #{user_token.tokens.first.created_at}) that expires at #{user_token.tokens.first.expires_at}"
       redirect_to root_path
     end
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)
-                            .where("? < created_at ",(Time.now - 86400)).first
+                            .where("? < created_at ",(Time.now - User::SECONDS_DAY)).first
 
       flash[:alert] = "You are not able to use a token"
       redirect_to root_path
