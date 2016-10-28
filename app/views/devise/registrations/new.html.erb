@@ -8,7 +8,7 @@
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :name, required: true%>
       <div id="mortals">
-        <%= f.input :type_user, as: :radio_buttons, collection: [['Gym Manager', '0'], ['Regular User', '1']], label_method: :first, value_method: :last, required: true, :checked => ['Regular', '1'] %>
+        <%= f.input :type_user, as: :radio_buttons, collection: [['Gym Manager', '0'], ['Regular User', '1']], label_method: :first, value_method: :last, required: true, :checked => ['Gym Manager', '0'] %>
         <%= f.input :admin, :as => :hidden, :input_html => { :value => :false } %>
       </div>
       <div class="response"></div>

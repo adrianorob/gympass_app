@@ -4,15 +4,14 @@ class UsersController < ApplicationController
   # Regular user get a token
   def get_token
     if current_user.token?
-      frac_time_end_day = Time.now.seconds_until_end_of_day.fdiv(86400)
       UserToken.create(user: current_user).add_token(:disactive,
-                                                      expires_at: frac_time_end_day.days.from_now)
-      flash[:notice] = "You've got a token to use and its available until the end of the day"
+                                                      expires_at: Time.now.end_of_day)
+      flash[:notice] = "You've got a token (at: #{Time.now}) until #{Time.now.end_of_day}"
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)
                             .where("? < created_at ",(Time.now - 86400)).first
-      flash[:alert] = "You already have a valid token that expires at #{user_token.tokens.first.expires_at}"
+      flash[:alert] = "You've already got valid token (at: #{user_token.tokens.first.created_at}) that expires at #{user_token.tokens.first.expires_at}"
       redirect_to root_path
     end
   end
