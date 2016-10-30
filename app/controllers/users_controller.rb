@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)
-                            .where("? < created_at ",(Time.now - User::SECONDS_DAY)).first
+                            .where("? < created_at ",(Time.now - 1.day.to_i)).first
       flash[:alert] = "You've already got valid token (at: #{user_token.tokens.first.created_at}) that expires at #{user_token.tokens.first.expires_at}"
       redirect_to root_path
     end
@@ -23,14 +23,16 @@ class UsersController < ApplicationController
       usertoken = UserToken.where(user_id: current_user.id).last
       usertoken.gym = gym
       usertoken.save
-
       flash[:notice] = "You've got a token to use once at Gym #{gym.name} and its available until the end of the day"
       redirect_to root_path
     else
       user_token = UserToken.where(user_id: current_user)
-                            .where("? < created_at ",(Time.now - User::SECONDS_DAY)).first
-
-      flash[:alert] = "You are not able to use a token"
+                            .where("? < created_at ",(Time.now - 1.day.to_i)).first
+      if user_token.nil?
+        flash[:alert] = "You did not retrieve your daily Token yet!"
+      else
+        flash[:alert] = "You already used your daily Token!"
+      end
       redirect_to root_path
     end
   end

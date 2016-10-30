@@ -2,8 +2,15 @@
 <div class="container">
   <% if user_signed_in? %>
     <div class="row">
-      <div class="col-xs-12 text-right">
-        <%= link_to "Get Daily Token", get_token_path, class: "btn btn-danger" %>
+      <div class="col-xs-6 text-left">
+        <%= paginate @gyms %>
+        <%= page_entries_info @gyms %>
+      </div>
+      <div class="col-xs-6 text-right">
+        <br><br>
+        <% if Gym.all.count > 0 %>
+          <%= link_to "Get Daily Token", get_token_path, class: "btn btn-danger" %>
+        <% end %>
         <% if current_user.regular_user? %>
           <%= link_to "List of my tokens", reg_user_tokens_path, class: "btn btn-primary" %>
         <% else %>
@@ -11,21 +18,33 @@
         <% end %>
       </div>
     </div>
+  <% else %>
+    <div class="row">
+      <div class="col-xs-12 text-left">
+        <%= paginate @gyms %>
+        <%= page_entries_info @gyms %>
+      </div>
+    </div>
   <% end %>
   <br>
   <div class="row">
-    <div class="col-xs-3">
+    <div class="col-xs-6">
       <div class="row">
-        <h4>List of Gyms near you (<%= @gyms.size %> gyms)</h4>
+        <% if @address.empty? %>
+          <h4>List of Gyms (<%= @gyms_markers.size %> gyms)</h4>
+        <% else %>
+          <h4>List of Gyms near address: <span style="color: #D23333" ><u><%= @address %></u></span>  (<%= @gyms_markers.size %> gyms)</h4>
+        <% end %>
         <hr>
         <% @gyms.each do |gym| %>
-          <div class="col-xs-12">
+          <div class="col-xs-6">
             <%= render 'map_box', gym: gym %>
           </div>
         <% end %>
       </div>
     </div>
-    <div class="col-xs-9">
+    <div class="col-xs-6">
+      <br><br><br>
       <div id="map" style="width: 100%; height: 500px;"></div>
     </div>
   </div>

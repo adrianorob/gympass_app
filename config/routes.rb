@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources "gyms"
 
+  get '/index_locked', to: 'gyms#index_locked', as: 'index_locked'
   get '/search', to: 'gyms#search'
+  get '/approve/:id', to: 'gyms#approve', as: 'approve'
 
   get '/token', to: 'users#get_token', as: 'get_token'
   get '/token/:id', to: 'users#use_token', as: 'use_token'

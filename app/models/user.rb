@@ -14,8 +14,6 @@ class User < ApplicationRecord
   has_many :gyms
   has_many :user_tokens
 
-  SECONDS_DAY = 86400
-
   def admin?
     self.admin
   end
@@ -25,11 +23,13 @@ class User < ApplicationRecord
   end
 
   def token?
-    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - SECONDS_DAY)).count < 1
+    return true if UserToken.all.count == 0
+    return true if UserToken.where(user_id: self.id).count == 0
+    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 1.day.to_i)).count < 1
   end
 
   def use_token?
-    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - SECONDS_DAY)).count == 1
+    UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 1.day.to_i)).count == 1
   end
 
   def token_not_assigned_to_gym?

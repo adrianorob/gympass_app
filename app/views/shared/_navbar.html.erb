@@ -5,7 +5,7 @@
   <% end %>
 
   <!-- Right Navigation -->
-  <div class="navbar-gym-right hidden-xs hidden-sm">
+  <div class="navbar-gym-right hidden-xs">
 
     <!-- Search form -->
     <form action="/search" method="get" class="navbar-gym-search">
@@ -19,17 +19,29 @@
     <% if user_signed_in? %>
 
       <!-- Notification  TODO -->
-      <%= link_to list_gym_tokens_path, class: "navbar-gym-item navbar-gym-link" do %>
-        <div class="badge-container">
-          <i class="fa fa-question-circle-o"></i>
-          <div class="badge badge-blue"><%= current_user.disactive_tokens %></div>
-        </div>
+      <% if current_user.admin? %>
+        <%= link_to index_locked_path, class: "navbar-gym-item navbar-gym-link", title: "List of not approded gyms" do %>
+          <div class="badge-container">
+            <i class="fa fa-unlock"></i>
+            <div class="badge badge-blue"><%= Gym.locked_gyms %></div>
+          </div>
+        <% end %>
       <% end %>
+      <% if current_user.admin? || !current_user.regular_user? %>
+        <%= link_to list_gym_tokens_path, class: "navbar-gym-item navbar-gym-link", title: "List of tokens needs to be validated"  do %>
+          <div class="badge-container">
+            <i class="fa fa-question-circle-o"></i>
+            <div class="badge badge-blue"><%= current_user.disactive_tokens %></div>
+          </div>
+        <% end %>
 
+        <%= link_to t(".top_call_to_action", default: "+ Add Gym"), new_gym_path, class: "navbar-gym-item navbar-gym-button btn" %>
+      <% end %>
       <!-- Profile picture and dropdown -->
       <div class="navbar-gym-item">
         <div class="dropdown">
           <p class="dropdown-toggle navbar-gym-button btn" data-toggle="dropdown" style="font-size: 10pt;">
+          <i class="fa fa-user"></i>
             Hello <%= current_user.name %>,
             you are currently signed as
             <%= current_user.admin? ? 'Admin' :
@@ -62,28 +74,47 @@
         </div>
       </div>
 
-      <% if current_user.admin? || !current_user.regular_user? %>
-        <%= link_to t(".top_call_to_action", default: "+ Add Gym"), new_gym_path, class: "navbar-gym-item navbar-gym-button btn" %>
-      <% end %>
 
     <% else %>
 
       <!-- Login text link -->
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-gym-item navbar-gym-button btn" %>
-      <p class="navbar-gym-item navbar-gym-button btn btn-special" style="font-size: 10pt;">
-        Hello, you are not signed!
-      </p>
 
     <% end %>
     <!-- Button (call-to-action) -->
   </div>
 
   <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-gym-item hidden-md hidden-lg">
+  <div class="navbar-gym-item hidden-sm hidden-md hidden-lg">
+    <form action="/search" method="get" class="navbar-gym-search">
+      <input type="text" name="address_query" id="address_query" class="navbar-gym-search-input" placeholder="Enter an address">
+      <button type="submit" class="navbar-gym-search-btn">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
+  <div class="navbar-gym-item hidden-sm hidden-md hidden-lg">
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-gym-dropdown-menu">
         <% if user_signed_in? %>
+          <% if current_user.admin? %>
+            <li>
+              <%= link_to admin_root_path do %>
+                <i class="fa fa-user"></i> <%= t(".admin", default: "Admin Section") %>
+              <% end %>
+            </li>
+          <% end %>
+          <li>
+            <%= link_to edit_user_registration_path do %>
+              <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to root_path do %>
+              <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
+            <% end %>
+          </li>
           <li><%= link_to t(".sign_out", default: "Logout"), destroy_user_session_path, class: "navbar-gym-item navbar-gym-link", method: :delete %></li>
         <% else %>
           <li><%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-gym-item navbar-gym-link" %></li>

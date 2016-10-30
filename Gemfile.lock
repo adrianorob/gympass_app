@@ -331,9 +331,11 @@ DEPENDENCIES
   inherited_resources!
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   letter_opener
   listen (~> 3.0.5)
   pg
+  pry
   pry-byebug
   pry-rails
   puma
