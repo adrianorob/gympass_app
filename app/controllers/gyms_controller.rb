@@ -1,13 +1,13 @@
 class GymsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show, :search ]
 
-  KM10_RADIUS = 10
-  KM30_RADIUS = 30
-  KM500_RADIUS = 500
+  NEAR_DISTANCE = 10
+  MEDIUM_DISTANCE = 30
+  FAR_DISTANCE = 500
 
   def index
     if current_user
-      @gyms = Gym.near(current_user.work_address, KM10_RADIUS)
+      @gyms = Gym.near(current_user.work_address, NEAR_DISTANCE)
     else
       @gyms = Gym.where.not(latitude: nil, longitude: nil)
     end
@@ -57,9 +57,9 @@ class GymsController < ApplicationController
   def search
     @address = params[:address_query]
     if params[:address_query].empty?
-      @gyms = Gym.near([-21.998062, -46.241335], KM500_RADIUS)
+      @gyms = Gym.near([-21.998062, -46.241335], FAR_DISTANCE)
     else
-      @gyms = Gym.near(@address, KM30_RADIUS)
+      @gyms = Gym.near(@address, MEDIUM_DISTANCE)
     end
     @hash = Gmaps4rails.build_markers(@gyms) do |gym, marker|
       marker.lat gym.latitude

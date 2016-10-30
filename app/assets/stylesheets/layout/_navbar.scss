@@ -65,6 +65,13 @@
   padding: 0 10px;
   position: relative;
 }
+.navbar-gym-search-drop {
+  flex: 0 1 500px;
+  display: flex;
+  justify-content: flex-left;
+  padding: 0 10px;
+  position: absolute;
+}
 .navbar-gym-search-btn {
   line-height: 40px;
   color: #E6E6E6;
