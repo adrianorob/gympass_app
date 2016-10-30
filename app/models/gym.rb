@@ -20,5 +20,4 @@ class Gym < ApplicationRecord
   def self.locked_gyms
     self.where(approved: false).count
   end
-
 end

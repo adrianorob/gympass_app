@@ -21,6 +21,7 @@ gem 'coffee-rails'
 gem 'gmaps4rails'
 gem 'tokens'
 gem "letter_opener", group: :development
+gem 'kaminari'
 
 gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
@@ -36,6 +37,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'better_errors'
 
+  gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'spring'

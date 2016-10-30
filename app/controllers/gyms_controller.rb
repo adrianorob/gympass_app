@@ -6,15 +6,22 @@ class GymsController < ApplicationController
   FAR_DISTANCE = 500
 
   def index
+    @address = ""
     if current_user
+      @gyms_markers = Gym.where(approved: true)
+                         .near(current_user.work_address, NEAR_DISTANCE)
       @gyms = Gym.where(approved: true)
+                 .page(params[:page]).per(4)
                  .near(current_user.work_address, NEAR_DISTANCE)
     else
       @gyms = Gym.where(approved: true)
+                 .page(params[:page]).per(4)
                  .where.not(latitude: nil, longitude: nil)
+      @gyms_markers = Gym.where(approved: true)
+                         .where.not(latitude: nil, longitude: nil)
     end
 
-    @hash = Gmaps4rails.build_markers(@gyms) do |gym, marker|
+    @hash = Gmaps4rails.build_markers(@gyms_markers) do |gym, marker|
       marker.lat gym.latitude
       marker.lng gym.longitude
       marker.infowindow render_to_string(partial: "/gyms/map_box", locals: { gym: gym })
@@ -22,7 +29,7 @@ class GymsController < ApplicationController
   end
 
   def index_locked
-    @gyms = Gym.where(approved: false)
+    @gyms = Gym.where(approved: false).page(params[:page]).per(10)
   end
 
   def show
@@ -50,7 +57,7 @@ class GymsController < ApplicationController
     if current_user.admin?
       gym.approve!
       flash[:notice] = "You've approved gym #{gym.name} succesfully!"
-      redirect_to root_path
+      redirect_to index_locked_path
     else
       flash[:alert] = "You are not able to approve gyms!"
       redirect_to root_path
@@ -72,17 +79,27 @@ class GymsController < ApplicationController
   def search
     @address = params[:address_query]
     if params[:address_query].empty?
+
+      @gyms_markers = Gym.where(approved: true)
+                 .near([-21.998062, -46.241335], FAR_DISTANCE)
+
       @gyms = Gym.where(approved: true)
+                 .page(params[:page]).per(4)
                  .near([-21.998062, -46.241335], FAR_DISTANCE)
     else
+      @gyms_markers = Gym.where(approved: true)
+                         .near(@address, MEDIUM_DISTANCE)
+
       @gyms = Gym.where(approved: true)
+                 .page(params[:page]).per(4)
                  .near(@address, MEDIUM_DISTANCE)
     end
-    @hash = Gmaps4rails.build_markers(@gyms) do |gym, marker|
+    @hash = Gmaps4rails.build_markers(@gyms_markers) do |gym, marker|
       marker.lat gym.latitude
       marker.lng gym.longitude
       marker.infowindow render_to_string(partial: "/gyms/map_box", locals: { gym: gym })
     end
+    render :index
   end
 
   private

@@ -1,10 +1,12 @@
 <br>
 <div class="container">
+  <%= paginate @gyms %>
+  <%= page_entries_info @gyms %>
   <br>
   <div class="row">
     <div class="col-xs-12">
       <div class="row">
-        <h4>List of Gyms (<%= @gyms.size %> gyms)</h4>
+        <h4>List of Gyms to be approved: (<%= Gym.locked_gyms %> gyms)</h4>
         <hr>
         <% @gyms.each do |gym| %>
           <div class="col-xs-4">

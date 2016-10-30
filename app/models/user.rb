@@ -23,6 +23,8 @@ class User < ApplicationRecord
   end
 
   def token?
+    return true if UserToken.all.count == 0
+    return true if UserToken.where(user_id: self.id).count == 0
     UserToken.where(user_id: self.id).where("? < created_at ",(Time.now - 1.day.to_i)).count < 1
   end
 
