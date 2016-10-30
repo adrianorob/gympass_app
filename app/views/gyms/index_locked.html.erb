@@ -1,0 +1,17 @@
+<br>
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <h4>List of Gyms (<%= @gyms.size %> gyms)</h4>
+        <hr>
+        <% @gyms.each do |gym| %>
+          <div class="col-xs-4">
+            <%= render 'locked_gym', gym: gym %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

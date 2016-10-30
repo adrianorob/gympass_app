@@ -1,0 +1,22 @@
+<div class="thumbnail">
+  <div class="caption">
+    <h3><%= gym.name %></h3>
+    <p><%= gym.address %></p>
+    <br>
+    <ul class="list-inline">
+      <li>
+        <h4>Open Time:</h4>
+        <p><%= gym.open_time %>:00h</p>
+      </li>
+      <li>
+        <h4>Close Time:</h4>
+        <p><%= gym.close_time %>:00h</p>
+      </li>
+    </ul>
+    <p>
+      <% if current_user.admin? %>
+        <%= link_to "Approve", approve_path(gym), class: "btn btn-primary" %>
+      <% end %>
+    </p>
+  </div>
+</div>

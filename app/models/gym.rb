@@ -12,4 +12,13 @@ class Gym < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
+  def approve!
+    self.approved = true
+    self.save
+  end
+
+  def self.locked_gyms
+    self.where(approved: false).count
+  end
+
 end

@@ -19,9 +19,16 @@
     <% if user_signed_in? %>
 
       <!-- Notification  TODO -->
-
+      <% if current_user.admin? %>
+        <%= link_to index_locked_path, class: "navbar-gym-item navbar-gym-link", title: "List of not approded gyms" do %>
+          <div class="badge-container">
+            <i class="fa fa-unlock"></i>
+            <div class="badge badge-blue"><%= Gym.locked_gyms %></div>
+          </div>
+        <% end %>
+      <% end %>
       <% if current_user.admin? || !current_user.regular_user? %>
-        <%= link_to list_gym_tokens_path, class: "navbar-gym-item navbar-gym-link" do %>
+        <%= link_to list_gym_tokens_path, class: "navbar-gym-item navbar-gym-link", title: "List of tokens needs to be validated"  do %>
           <div class="badge-container">
             <i class="fa fa-question-circle-o"></i>
             <div class="badge badge-blue"><%= current_user.disactive_tokens %></div>
